@@ -1,0 +1,144 @@
+# This file is used to ignore files which are generated
+# ----------------------------------------------------------------------------
+
+# Generated for Android builds
+android/AndroidManifest.xml
+android/build.gradle
+
+*~
+*.autosave
+*.a
+*.core
+*.moc
+*.o
+*.obj
+*.orig
+*.rej
+*.so
+*.so.*
+*_pch.h.cpp
+*_resource.rc
+*.qm
+.#*
+*.*#
+core
+!core/
+.DS_Store
+*.debug
+Makefile*
+*.prl
+*.app
+moc_*.cpp
+moc_*.h
+ui_*.h
+qrc_*.cpp
+Thumbs.db
+*.res
+*.rc
+/.qmake.cache
+/.qmake.stash
+node_modules
+
+# Python bytecode
+*.pyc
+
+# macOS generated files
+*.dSYM
+*.dylib
+*.Info.plist
+
+# test generated files
+target_wrapper.sh
+*_testresults.xml
+log.txt
+log.txt.old
+ctest.xml
+
+# qtcreator generated files
+*.pro.user*
+CMakeLists.txt.user
+
+# xemacs temporary files
+*.flc
+
+# Vim temporary files
+.*.swp
+
+# Visual Studio generated files
+*.ib_pdb_index
+*.idb
+*.ilk
+*.pdb
+*.sln
+*.suo
+*.vcproj
+*vcproj.*.*.user
+*.ncb
+*.sdf
+*.opensdf
+*.vcxproj
+*vcxproj.*
+# Visual Studio Code
+.vscode
+
+# MinGW generated files
+*.Debug
+*.Release
+
+# Python byte code
+*.pyc
+
+# Binaries
+# --------
+*.dll
+*.exe
+
+# Build directories
+/build*
+
+# qmlprofiler files
+*.qtd
+
+# conan
+conan
+
+# iOS build
+DerivedData
+*.xcodeproj
+*.build
+
+# Android build and IDE properties
+.gradle
+android/.idea/
+android/local.properties
+
+
+# vendor files
+*vendor*
+/deployment/android/secrets/android_release.keystore
+/deployment/android/secrets/android_release.password
+/deployment/macx/dsa_priv.pem
+
+# squish tests temporary files
+Testing/
+squishtests/Testing/
+squishtests/suite_*/Testing/
+squishtests/suite_*/*/errorImages/
+squishtests/suite_*/*/failedImages/
+squishtests/suite_*/shared/scripts/names.py
+
+#cmake
+CMakeUserPresets.json
+
+#clangd
+.cache/clangd
+compile_commands.json
+
+# JetBrains IDE metadata
+.idea
+
+# mkdocs build
+site/
+
+# direnv
+.direnv/
