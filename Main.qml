@@ -4,20 +4,22 @@ Window {
     width: 600
     height: 800
     visible: true
-    title: qsTr("A demo to demonstrate the sake of FocusScope")
+    title: qsTr("A multi-pages demo to demonstrate the sake of FocusScope")
+
+    property var tabs: [
+        { url: "Page1.qml", text: "basic" },
+        { url: "Page2.qml", text: "repeater" }
+    ]
 
     Column {
         anchors {
             fill: parent
             margins: 10
         }
-        spacing: 10
-
-        onActiveFocusChanged: console.log("-----main column activeFocus", activeFocus)
+        spacing: 0
 
         Row {
             id: header
-            objectName: "header"
             anchors {
                 left: parent.left
                 right: parent.right
@@ -26,71 +28,20 @@ Window {
             height: 50
             spacing: 10
 
-            onActiveFocusChanged: console.log("-----", objectName, activeFocus)
-
-            Rectangle {
-                height: parent.height
-                width: basic.implicitWidth
-                radius: 10
-                border.width: loader.source == "Page1.qml" ? 3 : 1
-
-                Item {
-                    id: basic
-                    height: parent.height
-                    implicitWidth: basicText.implicitWidth + 10
-
-                    Text {
-                        id: basicText
-                        height: parent.height
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        text: "basic"
-                    }
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: loader.source = "Page1.qml"
-                }
-            }
-
-            Rectangle {
-                height: parent.height
-                width: repeater.implicitWidth
-                radius: 10
-                border.width: loader.source == "Page2.qml" ? 3 : 1
-
-                Item {
-                    id: repeater
-                    height: parent.height
-                    implicitWidth: repeaterText.implicitWidth + 10
-
-                    Text {
-                        id: repeaterText
-                        height: parent.height
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        text: "repeater"
-                    }
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        loader.source = "Page2.qml"
-                    }
+            Repeater {
+                model: tabs
+                delegate: Tab {
+                    height: header.height
+                    selected: loader.source == modelData.url
+                    text: modelData.text
+                    onClicked: loader.source = modelData.url
                 }
             }
         }
 
         Item {
-            objectName: "contentItem"
             width: parent.width
             height: parent.height - header.height
-
-            onActiveFocusChanged: console.log("-----", objectName, activeFocus)
 
             // Loader is a focus scope. Its focus property must be set to true for any
             // of its children to get the active focus.
@@ -100,9 +51,43 @@ Window {
                     fill: parent
                     margins: 10
                 }
-                source: "Page1.qml"
+                source: tabs[0].url
                 onLoaded: forceActiveFocus() // give the focus to the loaded item
             }
         }
     }
+
+    component Tab : Rectangle {
+        id: root
+
+        property bool selected
+        property alias text: pageTitle.text
+
+        signal clicked
+
+        width: page.implicitWidth
+        border.width: selected ? 3 : 1
+
+        Item {
+            id: page
+            height: parent.height
+            implicitWidth: pageTitle.implicitWidth + 10
+
+            Text {
+                id: pageTitle
+                height: parent.height
+                anchors.horizontalCenter: parent.horizontalCenter
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+            }
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: root.clicked()
+        }
+    }
 }
+
+
+
